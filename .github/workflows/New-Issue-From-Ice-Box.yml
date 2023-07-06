@@ -9,6 +9,12 @@ on:
         column: "Ice Box"
 
 jobs:
+  Log-Trigger:
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo "🎉 The job was triggered"
+
+
   Check_Dependencies:
     runs-on: ubuntu-latest
     steps:
