@@ -23,7 +23,8 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            const issues = github.context.payload.comment.body.split('\n').map(d => d.trim());
+            const issue = github.context.payload.issue;
+            const issues = issue.body.split('\n').map(d => d.trim());
             const checkedDependencies = issues.filter(d => d.endsWith(':checked'));
             const linkedIssues = checkedDependencies.filter(d => d.includes(':issue:'));
             //possibly change to issues.filter for above
