@@ -39,8 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Move To New Issue Approval Column
-        run: |
-          echo "Moving to the New Issue Approval column"
         uses: "alex-page/github-project-automation-plus@v0.8.3"
         with:
           project: Project Board
@@ -55,9 +53,7 @@ jobs:
       issues: write
     steps:
       - name: Add Ready For Dev Lead Label
-      run: |
-        echo "Adding 'ready for dev lead' label"
-      uses: actions/github-script@v6
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.addLabels({
