@@ -23,49 +23,6 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            const issue = github.context.payload.issue;
-            const issues = issue.body.split('\n').map(d => d.trim());
-            const checkedDependencies = issues.filter(d => d.endsWith(':checked'));
-            const linkedIssues = checkedDependencies.filter(d => d.includes(':issue:'));
-            //possibly change to issues.filter for above
+            const issues = github.context.payload.comment.body
+            echo "The issue body is: $issues"
 
-            if (linkedIssues.length !== checkedDependencies.length) {
-              core.setFailed('Not all dependencies have issues linked to them');
-              exit(1);
-            }
-            else {
-              console.log("They're all check marked! Next step is to move onto icebox");
-              core.setOutput('run_next_job', 'yes');
-            }
-    outputs:
-      run_next_job: ${{steps.check.outputs.run_next_job}}
-
-  Move_To_New_Issue_Approval_Column:
-    needs: Check_Dependencies
-    if: needs.Check_Dependencies.outputs.run_next_job == 'yes'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Move To New Issue Approval Column
-        uses: "alex-page/github-project-automation-plus@v0.8.3"
-        with:
-          project: Project Board
-          column: "New Issue Approval"
-          repo-token: ${{ secrets.HACKFORLA_BOT_PA_TOKEN }}
-
-  Add_Ready_For_Dev_Lead_Label:
-    needs: Check_Dependencies
-    if: needs.Check_Dependencies.outputs.run_next_job == 'yes'
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-      - name: Add Ready For Dev Lead Label
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ["ready for dev lead"]
-            })
