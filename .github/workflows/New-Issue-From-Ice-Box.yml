@@ -33,7 +33,7 @@ jobs:
               exit(1);
             }
             else {
-              console.log('They\'re all check marked! Next step is to move onto icebox');
+              console.log("They're all check marked! Next step is to move onto icebox");
               echo "::check-output name=run_next_job::yes"
             }
     outputs:
