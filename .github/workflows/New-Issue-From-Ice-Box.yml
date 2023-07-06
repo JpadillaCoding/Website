@@ -23,6 +23,6 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            const issues = ${{ github.event.issue.body }}
+            const issues = context.payload.issue.body;
             console.log("The issue body is:", issues);
 
