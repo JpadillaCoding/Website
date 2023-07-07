@@ -100,5 +100,5 @@ jobs:
         with:
           project: Project Board
           column: "New Issue Approval"
-          repo-token: ${{ secrets.GHPROJECT_TOKEN }}
+          repo-token: ${{ secrets.ICE_BOX_TESTER }}
 
