@@ -65,4 +65,22 @@ jobs:
             const areTasksComplete = checkTasksCompletion(dependencies);
             
             console.log("completion:", areTasksComplete)
+            
+            if( areTasksComplete == true) {
+                core.setOutput('run_next_job', 'yes');
+            }
+    outputs:
+      run_next_job: ${{steps.check.outputs.run_next_job}}
+      
+  Move_To_New_Issue_Approval_Column:
+    needs: Check_Dependencies
+    if: needs.Check_Dependencies.outputs.run_next_job == 'yes'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move To New Issue Approval Column
+        uses: "alex-page/github-project-automation-plus@v0.8.3"
+        with:
+          project: Project Board
+          column: "New Issue Approval"
+          repo-token: ${{ secrets.HACKFORLA_BOT_PA_TOKEN }}
 
