@@ -23,6 +23,26 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            const issues = context.payload.issue.body;
-            console.log("The issue body is:", issues);
+            const issueText = context.payload.issue.body;
+            console.log("The issue body is:", issueText);
+            function extractDependencySection(markdownText) {
+              const lines = markdownText.split('\n');
+              let isDependencySection = false;
+              const dependencies = [];
+
+              for (const line of lines) {
+                if (line.startsWith('### Dependency')) {
+                  isDependencySection = true;
+                } else if (line.startsWith('###')) {
+                  break;
+                } else if (isDependencySection) {
+                  dependencies.push(line.trim());
+                }
+              }
+
+              return dependencies;
+            }
+
+            const dependencies = extractDependencySection(issueText);
+            console.log(dependencies);
 
