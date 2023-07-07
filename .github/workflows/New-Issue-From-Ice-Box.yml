@@ -82,5 +82,5 @@ jobs:
         with:
           project: Project Board
           column: "New Issue Approval"
-          repo-token: ${{ secrets.HACKFORLA_BOT_PA_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
