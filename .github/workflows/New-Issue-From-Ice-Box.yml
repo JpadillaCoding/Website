@@ -49,7 +49,7 @@ jobs:
             function checkTasksCompletion(dependencies) {
               for (const dependency of dependencies) {
                 const isComplete = /- \[x\]/.test(dependency);
-                const hasIssueLinked = /\(#\d+\)$/.test(dependency);
+                const hasIssueLinked = /#(\d+)/.test(dependency);
 
                 if (!isComplete || !hasIssueLinked) {
                     console.log("Dependency:", dependency)
