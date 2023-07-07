@@ -98,7 +98,7 @@ jobs:
       - name: Move To New Issue Approval Column
         uses: "alex-page/github-project-automation-plus@v0.8.3"
         with:
-          project: Project Board
-          column: New Issue Approval
+          project: "Project Board"
+          column: "New Issue Approval"
           repo-token: ${{ secrets.ICE_BOX_TESTER }}
 
