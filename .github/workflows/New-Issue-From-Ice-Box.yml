@@ -35,7 +35,7 @@ jobs:
                   isDependencySection = true;
                 } else if (line.startsWith('###')) {
                   break;
-                } else if (isDependencySection) {
+                } else if (isDependencySection && line.trim().startsWith('- [')) {
                   dependencies.push(line.trim());
                 }
               }
