@@ -52,6 +52,9 @@ jobs:
                 const hasIssueLinked = /\(#\d+\)$/.test(dependency);
 
                 if (!isComplete || !hasIssueLinked) {
+                    console.log("Dependency:", dependency)
+                    console.log("iscomplete:", isComplete)
+                    console.log("LinkedIssue:", hasIssueLinked)
                   return false;
                 }
               }
