@@ -44,5 +44,5 @@ jobs:
             }
 
             const dependencies = extractDependencySection(issueText);
-            console.log(dependencies);
+            console.log("dependencies:", dependencies);
 
