@@ -22,9 +22,13 @@ jobs:
         id: check
         uses: actions/github-script@v3
         with:
+          # Script finds the "Dependency" section and extracts the task list. 
+          # If there is no list then the job stops and nothing happens
+          # If everything on the list is linked to an issue and checked off then the job procceeds 
           script: |
             const issueText = context.payload.issue.body;
             console.log("The issue body is:", issueText);
+            
             function extractDependencySection(markdownText) {
               const lines = markdownText.split('\n');
               let isDependencySection = false;
@@ -42,12 +46,8 @@ jobs:
 
               return dependencies;
             }
-
-            const dependencies = extractDependencySection(issueText);
-            console.log("dependencies:", dependencies);
             
             function checkTasksCompletion(dependencies) {
-            
               if (dependencies.length === 0) {
                 return false
               }
@@ -63,12 +63,13 @@ jobs:
                   return false;
                 }
               }
-
               return true;
             } 
             
-            const areTasksComplete = checkTasksCompletion(dependencies);
+            const dependencies = extractDependencySection(issueText);
+            console.log("dependencies:", dependencies);
             
+            const areTasksComplete = checkTasksCompletion(dependencies);
             console.log("completion:", areTasksComplete)
             
             if( areTasksComplete == true) {
