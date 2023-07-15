@@ -48,7 +48,7 @@ jobs:
             
             function checkTasksCompletion(dependencies) {
             
-              if (dependencies == null) {
+              if (dependencies.length === 0) {
                 return false
               }
             
