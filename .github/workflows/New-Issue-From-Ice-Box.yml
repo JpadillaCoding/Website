@@ -19,11 +19,11 @@ jobs:
         run: |
           #Change token to hackforla token
           #Change link to project id of hackforla token (the 1 at the end of the url)
-          PROJECT_BOARD=$(curl -s -H "Authorization: token ${{ secrets.ICE_BOX_TESTER }}" "https://api.github.com/projects/1")
+          PROJECT_BOARD=$(curl -s -H "Authorization: Bearer ${{ secrets.ICE_BOX_TESTER }}" "https://api.github.com/projects/1")
           echo "::set-output name=project_board::${PROJECT_BOARD}"
           echo "Project Board Output:"
           echo "${PROJECT_BOARD}"
-          
+
   Check_Dependencies:
     runs-on: ubuntu-latest
     steps:
