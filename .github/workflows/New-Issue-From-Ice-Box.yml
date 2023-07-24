@@ -3,10 +3,6 @@ name: New Issue Approval From Ice Box
 on:
   issues:
     types: [edited]
-    filters:
-      project_column:
-        project: "Project Board"
-        column: "Ice Box"
 
 jobs:
   Log-Trigger:
@@ -14,6 +10,17 @@ jobs:
     steps:
      - run: echo "🎉 The job was triggered"
 
+  check_column_and_perform_action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Project Board Column
+        id: check_column
+        run: |
+          #Change token to hackforla token
+          #Change link to project id of hackforla token (the 1 at the end of the url)
+          PROJECT_BOARD=$(curl -s -H "Authorization: token ICE_BOX_TESTER" "https://api.github.com/projects/1")
+          echo "::set-output name=project_board::${PROJECT_BOARD}"
 
   Check_Dependencies:
     runs-on: ubuntu-latest
